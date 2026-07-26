@@ -1,197 +1,480 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy | Lofi Creator</title>
-    <style>
-        :root {
-            --bg-color: #0d0d12;
-            --card-bg: #1a1a24;
-            --text-main: #d1d1d1;
-            --text-muted: #888888;
-            --primary: #ff7a00;
-            --primary-hover: #ff9533;
-            --border-radius: 16px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lofi Creator — Apna Gaana Lofi Mein Convert Karo</title>
+<meta name="description" content="Lofi Creator: kisi bhi gaane ko seconds mein professional lofi track mein badlo. Presets, effects, high quality export.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0b0908;
+    --bg-alt: #120d0a;
+    --card: #17120d;
+    --card-2: #1d1610;
+    --border: rgba(255,138,61,0.22);
+    --border-strong: rgba(255,138,61,0.55);
+    --accent: #ff8a3d;
+    --accent2: #ff5f1f;
+    --text: #f5efe7;
+    --text-dim: #a89a8c;
+    --text-faint: #6f6459;
+    --font-display: 'Poppins', sans-serif;
+    --font-body: 'Inter', sans-serif;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:var(--font-body); -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{ color:inherit; }
+  .container{ max-width:1180px; margin:0 auto; padding:0 24px; }
+  section{ position:relative; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.7;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-        }
+  ::selection{ background: var(--accent); color:#1a0e04; }
 
-        .container {
-            max-width: 800px;
-            width: 100%;
-            margin: 50px 20px;
-            padding: 40px;
-            background-color: var(--card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-            border-top: 5px solid var(--primary);
-            box-sizing: border-box;
-        }
+  [data-reveal]{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
+  [data-reveal].in{ opacity:1; transform:translateY(0); }
 
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
+  /* ---------------- NAV ---------------- */
+  .nav{
+    position:sticky; top:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px;
+    background:rgba(11,9,8,0.75); backdrop-filter:blur(10px);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s ease, padding .3s ease;
+  }
+  .nav.scrolled{ border-bottom-color:var(--border); padding:12px 24px; }
+  .brand{ display:flex; align-items:center; gap:8px; }
+  .brand .mark{
+    width:30px; height:30px; border-radius:9px;
+    background:linear-gradient(135deg, var(--accent), var(--accent2));
+    display:flex; align-items:center; justify-content:center;
+  }
+  .brand .mark svg{ width:14px; height:14px; }
+  .brand .word{ font-family:var(--font-display); font-weight:800; font-size:18px; letter-spacing:0.2px; }
+  .brand .word span{ color:var(--accent); }
 
-        h1 {
-            color: #ffffff;
-            font-size: 2.6em;
-            margin: 0 0 10px 0;
-            letter-spacing: 1px;
-        }
+  .nav-links{ display:flex; gap:32px; align-items:center; }
+  .nav-links a{
+    text-decoration:none; color:var(--text-dim); font-size:14px; font-weight:600;
+    transition:color .2s ease;
+  }
+  .nav-links a:hover{ color:var(--text); }
+  .nav-cta{
+    display:inline-flex; align-items:center; gap:8px;
+    background:linear-gradient(135deg, var(--accent), var(--accent2));
+    color:#1a0e04; font-family:var(--font-display); font-weight:700; font-size:13.5px;
+    padding:10px 20px; border-radius:10px; text-decoration:none;
+    box-shadow:0 6px 18px rgba(255,95,31,0.25);
+  }
+  .menu-toggle{ display:none; background:none; border:none; color:var(--text); cursor:pointer; }
 
-        h1 span {
-            color: var(--primary);
-        }
+  /* ---------------- HERO ---------------- */
+  .hero{
+    padding:90px 24px 100px;
+    background:
+      radial-gradient(ellipse 700px 400px at 80% -10%, rgba(255,95,31,0.16), transparent 60%),
+      radial-gradient(ellipse 500px 300px at 0% 100%, rgba(255,138,61,0.08), transparent 60%);
+  }
+  .hero-grid{
+    max-width:1180px; margin:0 auto;
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:7px;
+    border:1px solid var(--border-strong); color:var(--accent);
+    font-size:11.5px; font-weight:700; letter-spacing:1.2px;
+    padding:7px 14px; border-radius:20px; margin-bottom:22px;
+  }
+  .hero h1{
+    font-family:var(--font-display); font-weight:700;
+    font-size:clamp(34px, 5vw, 54px); line-height:1.12; margin:0 0 20px;
+  }
+  .hero h1 .grad{
+    background:linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.lede{ color:var(--text-dim); font-size:17px; line-height:1.65; max-width:480px; margin:0 0 34px; }
+  .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:38px; }
+  .btn-primary{
+    display:inline-flex; align-items:center; gap:10px;
+    background:linear-gradient(135deg, var(--accent), var(--accent2));
+    color:#1a0e04; font-family:var(--font-display); font-weight:700; font-size:15px;
+    padding:15px 26px; border-radius:12px; text-decoration:none; border:none; cursor:pointer;
+    box-shadow:0 10px 26px rgba(255,95,31,0.3);
+    transition:transform .15s ease;
+  }
+  .btn-primary:hover{ transform:translateY(-2px); }
+  .btn-ghost{
+    display:inline-flex; align-items:center; gap:10px;
+    background:transparent; border:1.5px solid var(--border-strong); color:var(--text);
+    font-weight:600; font-size:15px; padding:14px 24px; border-radius:12px; text-decoration:none;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .btn-ghost:hover{ background:rgba(255,138,61,0.06); }
+  .hero-tags{ display:flex; gap:22px; flex-wrap:wrap; }
+  .hero-tags span{
+    display:flex; align-items:center; gap:7px; font-size:13px; color:var(--text-faint); font-weight:600;
+  }
+  .hero-tags svg{ color:var(--accent); flex-shrink:0; }
 
-        .last-updated {
-            color: var(--text-muted);
-            font-size: 0.95em;
-            font-style: italic;
-            background: rgba(255, 255, 255, 0.05);
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-        }
+  /* Hero visual: vinyl + waveform */
+  .hero-visual{ position:relative; display:flex; align-items:center; justify-content:center; }
+  .vinyl-wrap{ position:relative; width:320px; height:320px; }
+  .vinyl{
+    width:100%; height:100%; border-radius:50%;
+    background:
+      repeating-radial-gradient(circle at center, #1a1512 0px, #1a1512 2px, #241d18 3px, #241d18 4px);
+    box-shadow:0 30px 60px rgba(0,0,0,0.5), 0 0 0 1px var(--border);
+    animation:spin 8s linear infinite;
+    position:relative;
+  }
+  @media (prefers-reduced-motion: reduce){ .vinyl{ animation:none; } }
+  .vinyl::after{
+    content:""; position:absolute; inset:0; margin:auto;
+    width:34%; height:34%; border-radius:50%;
+    background:linear-gradient(135deg, var(--accent), var(--accent2));
+  }
+  .vinyl::before{
+    content:""; position:absolute; inset:0; margin:auto;
+    width:8%; height:8%; border-radius:50%; background:var(--bg); z-index:2;
+  }
+  @keyframes spin{ from{ transform:rotate(0); } to{ transform:rotate(360deg); } }
+  .tonearm{
+    position:absolute; top:-14px; right:-6px; width:130px; height:130px;
+    transform:rotate(24deg); transform-origin:100% 0%;
+  }
+  .glow-orb{
+    position:absolute; width:220px; height:220px; border-radius:50%;
+    background:radial-gradient(circle, rgba(255,138,61,0.25), transparent 70%);
+    top:50%; left:50%; transform:translate(-50%,-50%); z-index:-1;
+  }
+  .waveform{ position:absolute; bottom:-46px; left:50%; transform:translateX(-50%); display:flex; gap:4px; align-items:flex-end; height:36px; }
+  .waveform span{
+    width:4px; border-radius:3px; background:linear-gradient(180deg, var(--accent), var(--accent2));
+    animation:bounce 1.2s ease-in-out infinite;
+  }
+  @keyframes bounce{ 0%,100%{ transform:scaleY(0.3); } 50%{ transform:scaleY(1); } }
 
-        h2 {
-            color: var(--primary);
-            font-size: 1.4em;
-            margin-top: 40px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 122, 0, 0.15);
-            padding-bottom: 10px;
-        }
+  /* ---------------- Section heads ---------------- */
+  .sec-head{ text-align:center; max-width:620px; margin:0 auto 56px; }
+  .sec-eyebrow{ color:var(--accent); font-weight:700; font-size:12px; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; }
+  .sec-head h2{ font-family:var(--font-display); font-weight:700; font-size:clamp(26px,3.4vw,38px); margin:0 0 14px; }
+  .sec-head p{ color:var(--text-dim); font-size:15.5px; line-height:1.6; margin:0; }
 
-        p {
-            margin-bottom: 15px;
-        }
+  /* ---------------- Features ---------------- */
+  .features{ padding:100px 24px; background:var(--bg-alt); }
+  .feature-grid{ max-width:1180px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .feature-card{
+    background:var(--card); border:1px solid var(--border); border-radius:16px;
+    padding:28px 24px; transition:border-color .2s ease, transform .2s ease;
+  }
+  .feature-card:hover{ border-color:var(--border-strong); transform:translateY(-4px); }
+  .feature-icon{
+    width:44px; height:44px; border-radius:12px; margin-bottom:18px;
+    background:rgba(255,138,61,0.12); color:var(--accent);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .feature-card h3{ font-family:var(--font-display); font-size:16.5px; font-weight:700; margin:0 0 8px; }
+  .feature-card p{ color:var(--text-dim); font-size:13.8px; line-height:1.6; margin:0; }
 
-        ul {
-            background: rgba(255, 255, 255, 0.02);
-            padding: 25px 25px 25px 45px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            margin-bottom: 20px;
-        }
+  /* ---------------- Presets showcase ---------------- */
+  .presets{ padding:100px 24px; }
+  .preset-scroll{ max-width:1180px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+  .preset-tile{
+    border-radius:16px; overflow:hidden; position:relative; height:220px;
+    display:flex; flex-direction:column; justify-content:flex-end; padding:20px;
+    border:1px solid var(--border);
+  }
+  .preset-tile .tile-play{
+    position:absolute; top:16px; right:16px; width:34px; height:34px; border-radius:50%;
+    background:rgba(0,0,0,0.4); backdrop-filter:blur(2px); border:1px solid rgba(255,255,255,0.35);
+    display:flex; align-items:center; justify-content:center; color:#fff;
+  }
+  .preset-tile h4{ font-family:var(--font-display); font-size:16px; margin:0 0 3px; }
+  .preset-tile span{ font-size:12px; color:rgba(245,239,231,0.7); }
 
-        li {
-            margin-bottom: 12px;
-        }
+  /* ---------------- How it works ---------------- */
+  .how{ padding:100px 24px; background:var(--bg-alt); }
+  .how-grid{ max-width:1000px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:36px; position:relative; }
+  .how-grid::before{
+    content:""; position:absolute; top:26px; left:16%; right:16%; height:1px;
+    background:linear-gradient(90deg, transparent, var(--border-strong), transparent);
+  }
+  .how-step{ text-align:center; position:relative; }
+  .how-num{
+    width:52px; height:52px; border-radius:50%; margin:0 auto 20px;
+    background:linear-gradient(135deg, var(--accent), var(--accent2));
+    color:#1a0e04; font-family:var(--font-display); font-weight:800; font-size:19px;
+    display:flex; align-items:center; justify-content:center; position:relative; z-index:1;
+  }
+  .how-step h3{ font-family:var(--font-display); font-size:16.5px; margin:0 0 8px; }
+  .how-step p{ color:var(--text-dim); font-size:13.8px; line-height:1.6; max-width:230px; margin:0 auto; }
 
-        li strong {
-            color: #ffffff;
-        }
+  /* ---------------- CTA banner ---------------- */
+  .cta-banner{
+    margin:0 24px 100px; max-width:1180px; margin-left:auto; margin-right:auto;
+    border-radius:24px; padding:64px 40px; text-align:center;
+    background:
+      radial-gradient(ellipse 500px 260px at 50% 0%, rgba(255,138,61,0.2), transparent 65%),
+      linear-gradient(160deg, #201811, #0f0b08);
+    border:1px solid var(--border-strong);
+  }
+  .cta-banner h2{ font-family:var(--font-display); font-size:clamp(24px,3.4vw,34px); font-weight:700; margin:0 0 14px; }
+  .cta-banner p{ color:var(--text-dim); font-size:15px; margin:0 0 28px; }
 
-        a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
+  /* ---------------- Footer ---------------- */
+  footer{ padding:50px 24px 34px; border-top:1px solid var(--border); }
+  .footer-grid{ max-width:1180px; margin:0 auto; display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:30px; }
+  .footer-brand p{ color:var(--text-faint); font-size:13px; max-width:260px; margin-top:12px; line-height:1.6; }
+  .footer-links{ display:flex; gap:60px; flex-wrap:wrap; }
+  .footer-col h5{ font-size:12.5px; letter-spacing:1px; text-transform:uppercase; color:var(--text-faint); margin:0 0 14px; }
+  .footer-col a{ display:block; color:var(--text-dim); font-size:13.8px; text-decoration:none; margin-bottom:10px; }
+  .footer-col a:hover{ color:var(--accent); }
+  .footer-bottom{ max-width:1180px; margin:40px auto 0; padding-top:20px; border-top:1px solid var(--border); color:var(--text-faint); font-size:12.5px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
 
-        a:hover {
-            color: var(--primary-hover);
-            text-decoration: underline;
-        }
-
-        .contact-box {
-            background: linear-gradient(135deg, rgba(255,122,0,0.1) 0%, rgba(255,122,0,0.02) 100%);
-            border: 1px solid rgba(255,122,0,0.2);
-            padding: 30px;
-            border-radius: var(--border-radius);
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .contact-box h3 {
-            color: #fff;
-            margin-top: 0;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                margin: 20px 15px;
-                padding: 25px;
-            }
-            h1 {
-                font-size: 2em;
-            }
-        }
-    </style>
+  /* ---------------- Responsive ---------------- */
+  @media (max-width:900px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .hero-visual{ order:-1; margin-bottom:20px; }
+    .feature-grid{ grid-template-columns:repeat(2,1fr); }
+    .preset-scroll{ grid-template-columns:repeat(2,1fr); }
+    .how-grid{ grid-template-columns:1fr; gap:44px; }
+    .how-grid::before{ display:none; }
+    .nav-links{ display:none; }
+    .menu-toggle{ display:block; }
+  }
+  @media (max-width:520px){
+    .feature-grid, .preset-scroll{ grid-template-columns:1fr; }
+    .vinyl-wrap{ width:240px; height:240px; }
+  }
+</style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="header">
-            <h1><span>LOFI</span> CREATOR</h1>
-            <p>Privacy Policy</p>
-            <div class="last-updated">Last Updated: July 21, 2024</div>
-        </div>
-        
-        <p><strong>Lofi Creator</strong> ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and disclose information when you use our mobile application.</p>
+<nav class="nav" id="nav">
+  <div class="brand">
+    <div class="mark"><svg viewBox="0 0 10 10" fill="#1a0e04"><polygon points="2,1 9,5 2,9"/></svg></div>
+    <div class="word">LOFI <span>CREATOR</span></div>
+  </div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#presets">Presets</a>
+    <a href="#how">How it works</a>
+    <a href="#cta" class="nav-cta">Try Free</a>
+  </div>
+  <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
 
-        <h2>1. Information We Collect</h2>
-        <p>We do not collect any personally identifiable information (PII) like your name, email address, or phone number unless you provide it voluntarily (e.g., for feedback).</p>
-        <ul>
-            <li><strong>Audio Files:</strong> The app processes audio files locally on your device to create lofi remixes. We do not upload your music files to any server.</li>
-            <li><strong>Voice Recording:</strong> If you use the "Voice Over" feature, the app uses your microphone to record audio. These recordings are stored only on your device.</li>
-        </ul>
-
-        <h2>2. Third-Party Services</h2>
-        <p>We use third-party services that may collect information used to identify you:</p>
-        <ul>
-            <li><strong>Google AdMob:</strong> To show advertisements. They may use device identifiers to personalize ads.</li>
-            <li><strong>Firebase Analytics:</strong> To understand how users interact with the app (e.g., which features are used most).</li>
-            <li><strong>Firebase Crashlytics:</strong> To receive crash reports and improve app stability.</li>
-            <li><strong>Firebase Cloud Messaging (FCM):</strong> To send push notifications about app updates or features.</li>
-        </ul>
-
-        <h2>3. Permissions We Request</h2>
-        <ul>
-            <li><strong>Microphone (RECORD_AUDIO):</strong> Required for the Voice Over feature.</li>
-            <li><strong>Storage (READ_EXTERNAL_STORAGE):</strong> Required to pick music files from your device for conversion.</li>
-            <li><strong>Notifications (POST_NOTIFICATIONS):</strong> Required to alert you when a conversion is complete or to send app-related updates.</li>
-        </ul>
-
-        <h2>4. Data Retention and Deletion Policy</h2>
-        <p>Since Lofi Creator does not create user accounts or store your personal audio files on cloud servers:</p>
-        <ul>
-            <li><strong>Audio Files & Recordings:</strong> All remixed audio and voice recordings remain on your device and are managed entirely by you.</li>
-            <li><strong>Data Deletion:</strong> You can delete all locally stored app data at any time by clearing the app cache/data in your phone settings or by uninstalling the application.</li>
-        </ul>
-
-        <h2>5. Ad Personalization & Opt-Out</h2>
-        <p>You can opt out of personalized advertising by adjusting your device settings:</p>
-        <ul>
-            <li><strong>Android:</strong> Go to Settings &rarr; Google &rarr; Ads &rarr; Enable Opt out of Ads Personalization (or Delete advertising ID depending on your Android version).</li>
-        </ul>
-
-        <h2>6. Data Security</h2>
-        <p>We prioritize your data security. Because primary audio processing takes place locally on your device, your music and recordings remain secure on your phone. For the minimal analytics and performance data collected via Firebase, we rely on industry-standard encryption and security protocols.</p>
-
-        <h2>7. Children’s Privacy</h2>
-        <p>Our application is not intended for children under the age of 13. We do not knowingly collect personally identifiable information from children under 13. If we discover that a child under 13 has provided us with personal information, we will delete it immediately.</p>
-
-        <h2>8. Changes to This Privacy Policy</h2>
-        <p>We may update our Privacy Policy from time to time. Any changes will be posted on this page with an updated "Last Updated" date. You are advised to review this Privacy Policy periodically for any changes.</p>
-
-        <div class="contact-box">
-            <h3>Contact Us</h3>
-            <p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at:</p>
-            <p>Email: <a href="mailto:loficreator.support@gmail.com">loficreator.support@gmail.com</a></p>
-        </div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <span class="eyebrow">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1H3v1a9 9 0 0 0 8 8.94V22h2v-2.06A9 9 0 0 0 21 11v-1z"/></svg>
+        PRO LOFI ENGINE
+      </span>
+      <h1>Apna gaana badlo ek <span class="grad">chill lofi</span> anthem mein</h1>
+      <p class="lede">Koi bhi song upload karo, ek preset chuno, aur seconds mein studio-quality lofi track paao — vinyl crackle, warm tape tone aur mood-perfect effects ke saath.</p>
+      <div class="hero-ctas">
+        <a href="#cta" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          Try It Free
+        </a>
+        <a href="#how" class="btn-ghost">See how it works</a>
+      </div>
+      <div class="hero-tags">
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>No login needed</span>
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>Works in browser</span>
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>High quality export</span>
+      </div>
     </div>
+    <div class="hero-visual">
+      <div class="glow-orb"></div>
+      <div class="vinyl-wrap">
+        <div class="vinyl"></div>
+      </div>
+      <div class="waveform">
+        <span style="height:14px; animation-delay:0s;"></span>
+        <span style="height:26px; animation-delay:0.1s;"></span>
+        <span style="height:36px; animation-delay:0.2s;"></span>
+        <span style="height:20px; animation-delay:0.3s;"></span>
+        <span style="height:32px; animation-delay:0.4s;"></span>
+        <span style="height:18px; animation-delay:0.5s;"></span>
+        <span style="height:28px; animation-delay:0.6s;"></span>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="sec-head" data-reveal>
+    <div class="sec-eyebrow">Features</div>
+    <h2>Sab kuch jo ek lofi track ke liye chahiye</h2>
+    <p>Presets se lekar fine-tuning tak — Lofi Creator har step ko simple banata hai.</p>
+  </div>
+  <div class="feature-grid">
+    <div class="feature-card" data-reveal>
+      <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 5.2L19 9l-5.4 1.8L12 16l-1.6-5.2L5 9l5.4-1.8z"/></svg></div>
+      <h3>Ready-made Presets</h3>
+      <p>Lofi Chill, Night Drive, Rainy Day, Lofi HipHop — har mood ke liye ek tap mein sahi vibe.</p>
+    </div>
+    <div class="feature-card" data-reveal>
+      <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
+      <h3>Quick Effects</h3>
+      <p>8D Audio, Reverb + Slowed, Bass Boost aur Equalizer — sab mix-and-match karne layak.</p>
+    </div>
+    <div class="feature-card" data-reveal>
+      <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="21" x2="6" y2="10"/><line x1="6" y1="6" x2="6" y2="3"/><line x1="12" y1="21" x2="12" y2="14"/><line x1="12" y1="10" x2="12" y2="3"/><line x1="18" y1="21" x2="18" y2="16"/><line x1="18" y1="12" x2="18" y2="3"/></svg></div>
+      <h3>Preset Intensity</h3>
+      <p>Slider se control karo effect kitna subtle ya kitna deep lage — poori tarah aapke control mein.</p>
+    </div>
+    <div class="feature-card" data-reveal>
+      <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></div>
+      <h3>Reel / Trim Tool</h3>
+      <p>Apne track ka best hissa kaato aur seedha Reels ya Shorts ke liye ready karo.</p>
+    </div>
+    <div class="feature-card" data-reveal>
+      <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+      <h3>High Quality Export</h3>
+      <p>Original audio quality retain karke lofi warmth add karta hai — koi compression loss nahi.</p>
+    </div>
+    <div class="feature-card" data-reveal>
+      <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg></div>
+      <h3>Fast Conversion</h3>
+      <p>Lambi processing wait nahi — apna gaana daalo aur kuch hi seconds mein result paao.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRESETS SHOWCASE -->
+<section class="presets" id="presets">
+  <div class="sec-head" data-reveal>
+    <div class="sec-eyebrow">Presets</div>
+    <h2>Har vibe ke liye ek preset</h2>
+    <p>Apne mood ke hisaab se preset chuno, ya sab try karke best wala rakho.</p>
+  </div>
+  <div class="preset-scroll">
+    <div class="preset-tile" data-reveal style="background:linear-gradient(160deg, #3a2a52, #1c1330);">
+      <div class="tile-play"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
+      <h4>Lofi Chill</h4>
+      <span>Soft · Warm</span>
+    </div>
+    <div class="preset-tile" data-reveal style="background:linear-gradient(160deg, #16213e, #0d1321);">
+      <div class="tile-play"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
+      <h4>Night Drive</h4>
+      <span>Dark · Moody</span>
+    </div>
+    <div class="preset-tile" data-reveal style="background:linear-gradient(160deg, #5a3a3a, #2b1a1a);">
+      <div class="tile-play"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
+      <h4>Rainy Day</h4>
+      <span>Calm · Relax</span>
+    </div>
+    <div class="preset-tile" data-reveal style="background:linear-gradient(160deg, #4a1f4a, #1f0f26);">
+      <div class="tile-play"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
+      <h4>Lofi HipHop</h4>
+      <span>Boom Bap</span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="sec-head" data-reveal>
+    <div class="sec-eyebrow">Process</div>
+    <h2>Teen steps mein ready</h2>
+    <p>Upload se lekar download tak — poora process bina kisi jhanjhat ke.</p>
+  </div>
+  <div class="how-grid">
+    <div class="how-step" data-reveal>
+      <div class="how-num">1</div>
+      <h3>Audio file upload karo</h3>
+      <p>Apne phone ya computer se koi bhi song select karo.</p>
+    </div>
+    <div class="how-step" data-reveal>
+      <div class="how-num">2</div>
+      <h3>Preset ya effect chuno</h3>
+      <p>Mood ke hisaab se preset pick karo aur intensity adjust karo.</p>
+    </div>
+    <div class="how-step" data-reveal>
+      <div class="how-num">3</div>
+      <h3>Convert karo aur download karo</h3>
+      <p>Ek tap mein apna lofi track taiyaar, seedha download ke liye.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner" id="cta" data-reveal>
+  <h2>Apna pehla lofi track abhi banao</h2>
+  <p>Free hai, login nahi chahiye, aur seedha browser mein chalta hai.</p>
+  <a href="#" class="btn-primary">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    Select Audio File
+  </a>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="brand">
+        <div class="mark"><svg viewBox="0 0 10 10" fill="#1a0e04"><polygon points="2,1 9,5 2,9"/></svg></div>
+        <div class="word">LOFI <span>CREATOR</span></div>
+      </div>
+      <p>Kisi bhi gaane ko high-quality lofi track mein badalne ka sabse aasan tareeka.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h5>Product</h5>
+        <a href="#features">Features</a>
+        <a href="#presets">Presets</a>
+        <a href="#how">How it works</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Support</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Lofi Creator. All rights reserved.</span>
+    <span>Made for creators who love a warm, slowed-down sound.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', ()=>{
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); observer.unobserve(e.target); }
+    });
+  }, { threshold:0.15 });
+  document.querySelectorAll('[data-reveal]').forEach(el=> observer.observe(el));
+
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.querySelector('.nav-links');
+  menuToggle.addEventListener('click', ()=>{
+    const open = navLinks.style.display === 'flex';
+    navLinks.style.cssText = open ? '' : 'display:flex; position:absolute; top:64px; left:0; right:0; flex-direction:column; background:#0b0908; padding:20px 24px; border-bottom:1px solid var(--border); gap:18px;';
+  });
+})();
+</script>
 </body>
 </html>
